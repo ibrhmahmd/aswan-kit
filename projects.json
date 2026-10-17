@@ -335,6 +335,33 @@
         "poster": "docs/poster/kido-care-poster-1000x2000mm.pdf",
         "presentation": "docs/Kido-Care-presentation.pdf"
       }
+    },
+    {
+      "id": "turbo",
+      "name": "Turbo",
+      "folder": "Turpo",
+      "category": "Game",
+      "team": [
+        "Jomana",
+        "Ali"
+      ],
+      "description": "A fast-paced traffic-safety educational game: the player drives through 6 road environments, dodges incoming traffic and collects coins to unlock custom cars, and learns a road sign and a safe-driving rule each time the game ends.",
+      "github": "https://github.com/mr-basem/Turpo",
+      "live": "",
+      "login_note": "No login. Press F in the game to switch to full screen.",
+      "apps": [
+        {
+          "label": "Turbo (game)",
+          "kind": "game",
+          "dir": ".",
+          "entry": "Game.py",
+          "requirements": [
+            "pgzero==1.2.1",
+            "pygame==2.6.1"
+          ]
+        }
+      ],
+      "docs": {}
     }
   ]
 }
