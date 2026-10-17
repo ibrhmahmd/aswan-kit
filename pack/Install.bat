@@ -26,12 +26,12 @@ rem Write the AI keys into the projects that need them.
 @@SECRETS@@
 
 rem Put an icon on the Desktop that opens the launcher.
-powershell -NoProfile -Command "$s = (New-Object -ComObject WScript.Shell).CreateShortcut('%DESKTOP%\Open Aswan Projects.lnk'); $s.TargetPath = '%TARGET%\Start Aswan Projects.bat'; $s.WorkingDirectory = '%TARGET%'; $s.IconLocation = '%TARGET%\kit\launcher\icon.ico'; $s.Save()"
+powershell -NoProfile -Command "$s = (New-Object -ComObject WScript.Shell).CreateShortcut('%DESKTOP%\Open Project Manager.lnk'); $s.TargetPath = '%TARGET%\Open Project Manager.bat'; $s.WorkingDirectory = '%TARGET%'; $s.IconLocation = '%TARGET%\kit\launcher\icon.ico'; $s.Save()"
 
 echo.
-echo  Done! "Open Aswan Projects" is now on your Desktop.
+echo  Done! "Open Project Manager" is now on your Desktop.
 echo  Opening it for you...
-start "" "%TARGET%\Start Aswan Projects.bat"
+start "" "%TARGET%\Open Project Manager.bat"
 timeout /t 5 >nul
 exit /b 0
 

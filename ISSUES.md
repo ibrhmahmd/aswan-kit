@@ -7,7 +7,7 @@
 `pack/pack.py build` makes `dist/ASWAN-KIT`: Windows Python + Node, Windows packages per requirements set, the projects copied from this machine (with their DBs and the admin@admin.com / admin login), Docs, and the two .bat files with the keys written into Install.bat.
 
 ## #3 One-click install — feature
-`Install.bat` copies the payload to `Desktop\Aswan Projects`, writes the keys, adds the "Open Aswan Projects" Desktop icon and opens the launcher. No admin rights, no internet.
+`Install.bat` copies the payload to `Desktop\Aswan Projects`, writes the keys, adds the "Open Project Manager" Desktop icon and opens the launcher. No admin rights, no internet.
 
 ## #4 Launcher website — feature
 `launcher/app.py`: local mode runs/stops projects (several at once, Stop all, plain error + Try again + Show details) and opens the PDFs; hosted mode shows info and downloads the PDFs.

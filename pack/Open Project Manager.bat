@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 >nul
-title Aswan Projects - keep this window open
+title Project Manager - keep this window open
 cd /d "%~dp0kit"
 
 rem Already running? Then just open the browser again.
@@ -11,7 +11,7 @@ if not errorlevel 1 (
 )
 
 echo.
-echo  Aswan Projects is starting. Your browser will open in a moment.
+echo  Project Manager is starting. Your browser will open in a moment.
 echo  Keep this window open. You can minimize it.
 echo.
 set "PYTHONPATH=%~dp0kit\libs\@@LAUNCHER_ENV@@"
@@ -24,5 +24,5 @@ start "" /b powershell -NoProfile -WindowStyle Hidden -Command "for ($i = 0; $i 
 "python\python.exe" -m streamlit run "launcher\app.py" --server.port 8500 --server.address localhost
 
 echo.
-echo  Aswan Projects stopped. You can close this window.
+echo  Project Manager stopped. You can close this window.
 pause

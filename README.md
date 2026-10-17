@@ -5,9 +5,9 @@ Puts the 9 competition projects on the instructors' Windows laptops with one dou
 ## For instructors
 
 1. Plug in the USB and double-click **Install**. Wait until the window says *Done*.
-2. From then on, double-click **Open Aswan Projects** on the Desktop.
-3. On a project, press **▶ Run**, then **🌐 Open**. Every project uses the login **admin@admin.com / admin**.
-4. Keep the black window open while you work. You can minimize it. Press **■ Stop all** when you are done.
+2. From then on, double-click **Open Project Manager** on the Desktop.
+3. On a project, press **Run**, then **Open**. Every project uses the login **admin@admin.com / admin**.
+4. Keep the black window open while you work. You can minimize it. Press **Stop all** when you are done.
 
 The docs (documentation, poster, presentation) are in `Desktop\Aswan Projects\Docs`, and also on each project card.
 

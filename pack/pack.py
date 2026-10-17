@@ -262,8 +262,8 @@ def build():
     shutil.copytree(KIT_REPO / ".streamlit", KIT / ".streamlit")
     shutil.copytree(KIT_REPO / "Docs", PAYLOAD / "Docs")
 
-    start_text = (PACK_DIR / "Start Aswan Projects.bat").read_text(encoding="utf-8")
-    write_batch(PAYLOAD / "Start Aswan Projects.bat", start_text.replace("@@LAUNCHER_ENV@@", launcher_env))
+    start_text = (PACK_DIR / "Open Project Manager.bat").read_text(encoding="utf-8")
+    write_batch(PAYLOAD / "Open Project Manager.bat", start_text.replace("@@LAUNCHER_ENV@@", launcher_env))
     install_text = (PACK_DIR / "Install.bat").read_text(encoding="utf-8")
     write_batch(USB / "Install.bat", install_text.replace("@@SECRETS@@", "\n".join(secret_lines(manifest))))
 
