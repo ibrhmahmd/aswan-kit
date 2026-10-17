@@ -404,43 +404,8 @@ def matches(project, search):
     return search.lower() in text
 
 
-def count_docs(projects):
-    found = 0
-    for project in projects:
-        for kind in DOC_KINDS:
-            if doc_path(project, kind).exists():
-                found = found + 1
-    return found
-
-
-def count_running(projects):
-    running = 0
-    for project in projects:
-        for index, app in enumerate(project["apps"]):
-            if app_status(project, index, app) == "running":
-                running = running + 1
-    return running
-
-
-def count_students(projects):
-    students = 0
-    for project in projects:
-        students = students + len(project["team"])
-    return students
-
-
-def show_numbers(projects):
-    with st.container(horizontal=True):
-        st.metric("Projects", len(projects), border=True, icon=":material/apps:")
-        st.metric("Students", count_students(projects), border=True, icon=":material/groups:")
-        st.metric("Docs ready", str(count_docs(projects)) + " / " + str(len(projects) * 3), border=True, icon=":material/description:")
-        if LOCAL:
-            st.metric("Running now", count_running(projects), border=True, icon=":material/play_circle:")
-
-
 def show_page(manifest, search):
     projects = manifest["projects"]
-    show_numbers(projects)
     shown = []
     for project in projects:
         if matches(project, search):
