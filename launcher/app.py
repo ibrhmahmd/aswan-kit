@@ -358,8 +358,8 @@ def show_docs(project):
 
 def show_card(project, login):
     with st.container(border=True):
-        st.subheader(project["name"])
-        st.caption(project["category"] + " · Team: " + ", ".join(project["team"]))
+        st.subheader(project["name"] + " — " + ", ".join(project["team"]))
+        st.caption(project["category"])
         st.write(project["description"])
         st.caption("🔑 Log in with **" + login["email"] + "** / **" + login["password"] + "**")
         if LOCAL:
