@@ -3,6 +3,7 @@
     python3 pack/pack.py docs    copy each project's 3 PDFs into Docs/ (commit them for the hosted site)
     python3 pack/pack.py build   build dist/ASWAN-KIT, the folder to copy onto each USB
     python3 pack/pack.py zip     zip dist/ASWAN-KIT into dist/ASWAN-KIT.zip (the Drive backup)
+    python3 pack/pack.py keys    rewrite only dist/ASWAN-KIT/Install.bat (after changing a key)
 
 The projects are copied from the folders next to this repo, as they are right now.
 The API keys are read from those folders too and written only into dist/.../Install.bat.
@@ -227,7 +228,15 @@ def secret_lines(manifest):
                 arrow = ">" if first else ">>"
                 lines.append(arrow + destination + " echo " + batch_escape(line))
                 first = False
+            # Tell the instructor straight away if a key file could not be written.
+            lines.append("if exist " + destination + " (echo  AI key for " + project["name"] + ": OK) else (echo  WARNING: the AI key for "
+                         + project["name"] + " was not written. Call the lead instructor.)")
     return lines
+
+
+def write_installer(manifest):
+    install_text = (PACK_DIR / "Install.bat").read_text(encoding="utf-8")
+    write_batch(USB / "Install.bat", install_text.replace("@@SECRETS@@", "\n".join(secret_lines(manifest))))
 
 
 def write_batch(path, text):
@@ -264,8 +273,7 @@ def build():
 
     start_text = (PACK_DIR / "Open Project Manager.bat").read_text(encoding="utf-8")
     write_batch(PAYLOAD / "Open Project Manager.bat", start_text.replace("@@LAUNCHER_ENV@@", launcher_env))
-    install_text = (PACK_DIR / "Install.bat").read_text(encoding="utf-8")
-    write_batch(USB / "Install.bat", install_text.replace("@@SECRETS@@", "\n".join(secret_lines(manifest))))
+    write_installer(manifest)
 
     say("")
     for line in report:
@@ -290,5 +298,11 @@ if __name__ == "__main__":
         build()
     elif command == "zip":
         make_zip()
+    elif command == "keys":
+        # Only rewrite Install.bat, e.g. after changing a key; much faster than a full build.
+        if not USB.exists():
+            sys.exit("Run `pack.py build` first.")
+        write_installer(load_manifest())
+        say("Rewrote " + str(USB / "Install.bat"))
     else:
         sys.exit(__doc__)
