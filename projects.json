@@ -308,7 +308,11 @@
           "port": 8510
         }
       ],
-      "docs": {}
+      "docs": {
+        "documentation": "docs/foodzilla-documentation.pdf",
+        "poster": "docs/poster/foodzilla-poster-1000x2000mm.pdf",
+        "presentation": "docs/foodZILLA-presentation.pdf"
+      }
     },
     {
       "id": "kido-care",
