@@ -7,5 +7,14 @@ gatherUsageStats = false
 [client]
 toolbarMode = "minimal"
 
+# Nile blue on warm sand. Built-in fonts only, because the laptops are offline.
 [theme]
-primaryColor = "#1f6feb"
+base = "light"
+primaryColor = "#0b5c8e"
+backgroundColor = "#fbf8f3"
+secondaryBackgroundColor = "#f2ebe0"
+textColor = "#1f2933"
+borderColor = "#e4d9c8"
+baseRadius = "10px"
+showWidgetBorder = true
+font = "sans-serif"

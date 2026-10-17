@@ -27,7 +27,8 @@ ON_WINDOWS = os.name == "nt"
 START_TIMEOUT_SECONDS = 90
 
 DOC_KINDS = ["documentation", "poster", "presentation"]
-DOC_LABELS = {"documentation": "📘 Documentation", "poster": "🖼️ Poster", "presentation": "📊 Presentation"}
+DOC_LABELS = {"documentation": "Documentation", "poster": "Poster", "presentation": "Presentation"}
+DOC_ICONS = {"documentation": ":material/description:", "poster": ":material/image:", "presentation": ":material/slideshow:"}
 
 # Windows: run each project with its own hidden console, so closing the launcher window doesn't stop it.
 CREATE_NO_WINDOW = 0x08000000
@@ -299,37 +300,43 @@ def open_file(path):
 
 # ---------- the page ----------
 
+# How each status looks: (text, Material icon, badge colour).
 STATUS_BADGES = {
-    "running": "🟢 Running",
-    "starting": "🟡 Starting...",
-    "stopped": "⚪ Stopped",
-    "failed": "🔴 Problem",
+    "running": ("Running", ":material/check_circle:", "green"),
+    "starting": ("Starting", ":material/progress_activity:", "orange"),
+    "stopped": ("Stopped", ":material/pause_circle:", "gray"),
+    "failed": ("Problem", ":material/error:", "red"),
 }
 
 
 def show_app_row(project, index, app):
     key = project["id"] + "-" + str(index)
     status = app_status(project, index, app)
-    st.markdown("**" + app["label"] + "** · " + STATUS_BADGES[status])
+    text, icon, color = STATUS_BADGES[status]
+    with st.container(horizontal=True, vertical_alignment="center"):
+        st.markdown("**" + app["label"] + "**", width="content")
+        st.badge(text, icon=icon, color=color)
 
-    left, middle, right = st.columns(3)
-    if status == "running" or status == "starting":
-        if app_url(app):
-            left.link_button("🌐 Open", app_url(app), width="stretch", type="primary")
-        if middle.button("■ Stop", key=key + "-stop", width="stretch"):
-            stop_app(project, index, app)
-            st.rerun()
-    elif status == "failed":
-        st.error(plain_problem(read_log(project, index)))
-        if left.button("↻ Try again", key=key + "-retry", width="stretch", type="primary"):
-            run_app(project, index, app)
-            st.rerun()
-        with st.expander("Show details"):
+    with st.container(horizontal=True):
+        if status == "running" or status == "starting":
+            if app_url(app):
+                st.link_button("Open", app_url(app), icon=":material/open_in_new:", type="primary")
+            if st.button("Stop", key=key + "-stop", icon=":material/stop_circle:"):
+                stop_app(project, index, app)
+                st.rerun()
+        elif status == "failed":
+            if st.button("Try again", key=key + "-retry", icon=":material/refresh:", type="primary"):
+                run_app(project, index, app)
+                st.rerun()
+        else:
+            if st.button("Run", key=key + "-run", icon=":material/play_arrow:", type="primary"):
+                run_app(project, index, app)
+                st.rerun()
+
+    if status == "failed":
+        st.error(plain_problem(read_log(project, index)), icon=":material/error:")
+        with st.expander("Show details", icon=":material/terminal:"):
             st.code(read_log(project, index)[-3000:] or "(no output)")
-    else:
-        if left.button("▶ Run", key=key + "-run", width="stretch", type="primary"):
-            run_app(project, index, app)
-            st.rerun()
 
 
 def file_reader(path):
@@ -339,39 +346,49 @@ def file_reader(path):
 
 
 def show_docs(project):
-    columns = st.columns(3)
-    for number, kind in enumerate(DOC_KINDS):
-        path = doc_path(project, kind)
-        column = columns[number]
-        if not path.exists():
-            column.button(DOC_LABELS[kind], key=project["id"] + "-" + kind, disabled=True, width="stretch", help="Not ready yet")
-        elif LOCAL:
-            if column.button(DOC_LABELS[kind], key=project["id"] + "-" + kind, width="stretch"):
-                open_file(path)
-        else:
-            # Read the PDF only when the button is clicked; sending all 26 on every page load would be slow.
-            column.download_button(
-                DOC_LABELS[kind], file_reader(path), file_name=project["name"] + " - " + path.name,
-                mime="application/pdf", key=project["id"] + "-" + kind, width="stretch",
-            )
+    with st.container(horizontal=True):
+        for kind in DOC_KINDS:
+            path = doc_path(project, kind)
+            key = project["id"] + "-" + kind
+            if not path.exists():
+                st.button(DOC_LABELS[kind], key=key, icon=DOC_ICONS[kind], disabled=True, help="Not ready yet")
+            elif LOCAL:
+                if st.button(DOC_LABELS[kind], key=key, icon=DOC_ICONS[kind]):
+                    open_file(path)
+            else:
+                # Read the PDF only when the button is clicked; sending all 26 on every page load would be slow.
+                st.download_button(
+                    DOC_LABELS[kind], file_reader(path), file_name=project["name"] + " - " + path.name,
+                    mime="application/pdf", key=key, icon=DOC_ICONS[kind],
+                )
 
 
-def show_card(project, login):
+def download_url(project):
+    # GitHub makes a zip of the project's main branch at this address.
+    return project["github"] + "/archive/HEAD.zip"
+
+
+def show_links(project):
+    with st.container(horizontal=True):
+        if project.get("github"):
+            st.link_button("Download project", download_url(project), icon=":material/download:")
+            st.link_button("GitHub", project["github"], icon=":material/code:")
+        if project.get("live"):
+            st.link_button("Live website", project["live"], icon=":material/language:")
+
+
+def show_card(project):
     with st.container(border=True):
         st.subheader(project["name"] + " — " + ", ".join(project["team"]))
-        st.caption(project["category"])
+        st.badge(project["category"], icon=":material/category:", color="blue")
         st.write(project["description"])
-        st.caption("🔑 Log in with **" + login["email"] + "** / **" + login["password"] + "**")
         if LOCAL:
             for index, app in enumerate(project["apps"]):
                 show_app_row(project, index, app)
-        st.markdown("**Docs**")
+        st.caption("Docs")
         show_docs(project)
-        links = st.columns(2)
-        if project.get("github"):
-            links[0].link_button("GitHub", project["github"], width="stretch")
-        if project.get("live"):
-            links[1].link_button("Live website", project["live"], width="stretch")
+        st.caption("Code")
+        show_links(project)
 
 
 def stop_everything(manifest):
@@ -380,33 +397,86 @@ def stop_everything(manifest):
             stop_app(project, index, app)
 
 
-def show_cards(manifest):
+def matches(project, search):
+    if search == "":
+        return True
+    text = (project["name"] + " " + " ".join(project["team"]) + " " + project["category"]).lower()
+    return search.lower() in text
+
+
+def count_docs(projects):
+    found = 0
+    for project in projects:
+        for kind in DOC_KINDS:
+            if doc_path(project, kind).exists():
+                found = found + 1
+    return found
+
+
+def count_running(projects):
+    running = 0
+    for project in projects:
+        for index, app in enumerate(project["apps"]):
+            if app_status(project, index, app) == "running":
+                running = running + 1
+    return running
+
+
+def count_students(projects):
+    students = 0
+    for project in projects:
+        students = students + len(project["team"])
+    return students
+
+
+def show_numbers(projects):
+    with st.container(horizontal=True):
+        st.metric("Projects", len(projects), border=True, icon=":material/apps:")
+        st.metric("Students", count_students(projects), border=True, icon=":material/groups:")
+        st.metric("Docs ready", str(count_docs(projects)) + " / " + str(len(projects) * 3), border=True, icon=":material/description:")
+        if LOCAL:
+            st.metric("Running now", count_running(projects), border=True, icon=":material/play_circle:")
+
+
+def show_page(manifest, search):
     projects = manifest["projects"]
-    for start in range(0, len(projects), 3):
+    show_numbers(projects)
+    shown = []
+    for project in projects:
+        if matches(project, search):
+            shown.append(project)
+    if not shown:
+        st.caption("No project matches that search.")
+    for start in range(0, len(shown), 3):
         columns = st.columns(3)
         for offset in range(3):
-            if start + offset < len(projects):
+            if start + offset < len(shown):
                 with columns[offset]:
-                    show_card(projects[start + offset], manifest["login"])
+                    show_card(shown[start + offset])
 
 
-st.set_page_config(page_title="Aswan Projects", page_icon="🎒", layout="wide")
+st.set_page_config(page_title="Aswan Projects", page_icon=":material/travel_explore:", layout="wide")
 manifest = load_manifest()
+login = manifest["login"]
 
-st.title("🎒 Aswan Projects")
+with st.container(horizontal=True, vertical_alignment="center"):
+    st.title("Aswan Projects", icon=":material/travel_explore:", width="stretch")
+    if LOCAL:
+        if st.button("Stop all", icon=":material/stop_circle:"):
+            stop_everything(manifest)
+            st.rerun()
+
 if LOCAL:
-    top_left, top_right = st.columns([4, 1])
-    top_left.write("Press **▶ Run** on a project, then **🌐 Open**. Every project uses the same login: **"
-                   + manifest["login"]["email"] + " / " + manifest["login"]["password"] + "**.")
-    if top_right.button("■ Stop all", width="stretch"):
-        stop_everything(manifest)
-        st.rerun()
+    st.caption("Press **Run** on a project, then **Open**. Keep the black window open while you work.")
 else:
-    st.write("The projects going to the Aswan competition, with their docs. Every project uses the same login: **"
-             + manifest["login"]["email"] + " / " + manifest["login"]["password"] + "**.")
+    st.caption("The student projects going to the Aswan competition, with their docs and code.")
+st.info("Every project uses the same login: **" + login["email"] + "** / **" + login["password"] + "**", icon=":material/key:")
+
+search = st.text_input("Search", placeholder="Search by project or student name", label_visibility="collapsed",
+                       icon=":material/search:")
 
 if LOCAL:
     # Refresh every few seconds so a project that finished starting shows as running.
-    st.fragment(show_cards, run_every=5)(manifest)
+    st.fragment(show_page, run_every=5)(manifest, search)
 else:
-    show_cards(manifest)
+    show_page(manifest, search)
