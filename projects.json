@@ -166,7 +166,8 @@
       ],
       "docs": {
         "poster": "docs/poster/manyhouses-poster-1000x2000mm.pdf",
-        "presentation": "docs/manyhouses-pitch-deck.pdf"
+        "presentation": "docs/manyhouses-pitch-deck.pdf",
+        "documentation": "docs/Documentation.pdf"
       }
     },
     {
@@ -365,7 +366,58 @@
           ]
         }
       ],
-      "docs": {}
+      "docs": {
+        "documentation": "docs/turbo-documentation.pdf",
+        "poster": "docs/poster/turbo-poster-1000x2000mm.pdf",
+        "presentation": "docs/turbo-presentation.pdf"
+      }
+    },
+    {
+      "id": "medsync",
+      "name": "MedSync",
+      "folder": "medisync/medisync",
+      "category": "Web App / AI",
+      "team": [
+        "Sief",
+        "Leen"
+      ],
+      "description": "A web app that reminds patients to take their medicines and connects them with their care team. Doctors prescribe and follow adherence, nurses mark each dose as given or missed, patients get an alarm at each dose time, and a chatbot answers questions with Gemini.",
+      "github": "",
+      "live": "",
+      "login_note": "Choose the role Doctor when you log in.",
+      "apps": [
+        {
+          "label": "MedSync",
+          "kind": "streamlit",
+          "dir": ".",
+          "entry": "app.py",
+          "port": 8512,
+          "requirements": [
+            "google-genai==2.28.0",
+            "pypdf==6.19.0",
+            "streamlit==1.65.0"
+          ]
+        }
+      ],
+      "admin": {
+        "db": "database.db",
+        "sql": "INSERT INTO users (name, age, gender, dob, phone_number, email, password, role) SELECT 'Admin', 30, 'Male', '1996-01-01', '01000000000', 'admin@admin.com', 'admin', 'Doctor' WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = 'admin@admin.com'); UPDATE users SET password = 'admin', role = 'Doctor' WHERE email = 'admin@admin.com'; INSERT INTO doctors (user_ID, specialization, license_number, experience_years) SELECT user_ID, 'General Medicine', 'ADMIN-0000', 10 FROM users WHERE email = 'admin@admin.com' AND user_ID NOT IN (SELECT user_ID FROM doctors);"
+      },
+      "secrets": {
+        ".streamlit/secrets.toml": {
+          "source": "medisync/medisync/.streamlit/secrets.toml.example",
+          "read": "GEMINI_API_KEY",
+          "write": "GEMINI_API_KEY = \"{value}\""
+        }
+      },
+      "strip": [
+        ".streamlit/secrets.toml.example"
+      ],
+      "docs": {
+        "documentation": "docs/medsync-documentation.pdf",
+        "poster": "docs/poster/medsync-poster-1000x2000mm.pdf",
+        "presentation": "docs/MedSync-presentation.pdf"
+      }
     }
   ]
 }

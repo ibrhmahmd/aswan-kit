@@ -1,6 +1,6 @@
 # Aswan Kit
 
-Puts the 12 competition projects on the instructors' Windows laptops with one double-click, without internet.
+Puts the 13 competition projects on the instructors' Windows laptops with one double-click, without internet.
 
 ## For instructors
 
@@ -33,7 +33,7 @@ Deploy `launcher/app.py` from this repo on Streamlit Cloud. With no `projects` f
 
 ## Ports
 
-Launcher 8500 · Byte Me 8501 · Ma'at 8502 · EmlakHub 8503 · Many Houses 8504 · NEO Challenge 8505 · MedMind 8506 (+ API 3000) · Legion 8507 · Vivestand 8508 · Pixel Verse website 8509 · foodZILLA 8510 · Kido Care 8511. The three games (Crab Quest, Space X, Turbo) open their own window.
+Launcher 8500 · Byte Me 8501 · Ma'at 8502 · EmlakHub 8503 · Many Houses 8504 · NEO Challenge 8505 · MedMind 8506 (+ API 3000) · Legion 8507 · Vivestand 8508 · Pixel Verse website 8509 · foodZILLA 8510 · Kido Care 8511 · MedSync 8512. The three games (Crab Quest, Space X, Turbo) open their own window.
 
 ## Limits
 

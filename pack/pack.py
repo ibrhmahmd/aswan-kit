@@ -163,6 +163,11 @@ def copy_project(project):
         secret = target / relative
         if secret.exists():
             secret.unlink()
+    # Other files to leave out, e.g. an example file that holds a real key.
+    for relative in project.get("strip", []):
+        extra = target / relative
+        if extra.exists():
+            extra.unlink()
     return target
 
 
@@ -174,7 +179,8 @@ def add_admin(project, target):
     if not db_path.exists():
         sys.exit(project["name"] + ": database not found at " + admin["db"])
     connection = sqlite3.connect(db_path)
-    connection.execute(admin["sql"])
+    # executescript runs several statements, for projects that need more than one row.
+    connection.executescript(admin["sql"])
     connection.commit()
     connection.close()
 
