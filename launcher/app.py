@@ -382,6 +382,8 @@ def show_card(project):
         st.subheader(project["name"] + " — " + ", ".join(project["team"]))
         st.badge(project["category"], icon=":material/category:", color="blue")
         st.write(project["description"])
+        if project.get("login_note"):
+            st.caption(project["login_note"])
         if LOCAL:
             for index, app in enumerate(project["apps"]):
                 show_app_row(project, index, app)
@@ -435,7 +437,7 @@ if LOCAL:
     st.caption("Press **Run** on a project, then **Open**. Keep the black window open while you work.")
 else:
     st.caption("The student projects going to the Aswan competition, with their docs and code.")
-st.info("Every project uses the same login: **" + login["email"] + "** / **" + login["password"] + "**", icon=":material/key:")
+st.info("Every project with a login uses: **" + login["email"] + "** / **" + login["password"] + "**", icon=":material/key:")
 
 search = st.text_input("Search", placeholder="Search by project or student name", label_visibility="collapsed",
                        icon=":material/search:")

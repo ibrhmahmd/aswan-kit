@@ -1,17 +1,28 @@
 {
-  "login": {"email": "admin@admin.com", "password": "admin"},
+  "login": {
+    "email": "admin@admin.com",
+    "password": "admin"
+  },
   "projects": [
     {
       "id": "byte-me",
       "name": "Byte Me",
       "folder": "adel-byte-me",
       "category": "Web App",
-      "team": ["Adel Ghonemy"],
+      "team": [
+        "Adel Ghonemy"
+      ],
       "description": "A food delivery website, like Talabat. You pick a restaurant, put dishes in your cart, and place an order. Admins add restaurants and dishes and move orders along from \"pending\" to \"completed\".",
       "github": "https://github.com/adel26102015/BYTE_ME",
       "live": "https://byte-me.streamlit.app/register",
       "apps": [
-        {"label": "Byte Me", "kind": "streamlit", "dir": ".", "entry": "app.py", "port": 8501}
+        {
+          "label": "Byte Me",
+          "kind": "streamlit",
+          "dir": ".",
+          "entry": "app.py",
+          "port": 8501
+        }
       ],
       "admin": {
         "db": "database/database.db",
@@ -28,12 +39,20 @@
       "name": "Legion",
       "folder": "legion",
       "category": "Static Website",
-      "team": ["Omar", "Malek"],
+      "team": [
+        "Omar",
+        "Malek"
+      ],
       "description": "A website for Legion, a made-up health company. It has six pages: home, platform, AI care agent, contact, sign in and create account.",
       "github": "https://github.com/omar-mofreh/legion",
       "live": "https://omar-mofreh.github.io/legion/",
       "apps": [
-        {"label": "Legion website", "kind": "static", "dir": ".", "port": 8507}
+        {
+          "label": "Legion website",
+          "kind": "static",
+          "dir": ".",
+          "port": 8507
+        }
       ],
       "docs": {
         "documentation": "docs/legion-documentation.pdf",
@@ -46,14 +65,39 @@
       "name": "Pixel Verse Studios",
       "folder": "PVS",
       "category": "Games + Website",
-      "team": ["Mohamed Loia", "Selim Loai", "Medhat", "Salah", "Mariam"],
+      "team": [
+        "Mohamed Loia",
+        "Selim Loai",
+        "Medhat",
+        "Salah",
+        "Mariam"
+      ],
       "description": "Pixel Verse Studios makes educational games and has a marketing website for them. Crab Quest: an ocean adventure that follows a crab through 6 chapters. Space X: an educational space shooter that teaches a fact about the solar system each time the game ends.",
       "github": "https://github.com/ibrhmahmd/PVS",
       "live": "",
       "apps": [
-        {"label": "Studio website", "kind": "static", "dir": "pixel-verse-studios", "port": 8509},
-        {"label": "Crab Quest (game)", "kind": "game", "dir": "Crab-game", "entry": "main.py", "requirements": ["pgzero==1.2.1", "pygame==2.6.1"]},
-        {"label": "Space X (game)", "kind": "game", "dir": "space-game", "entry": "Game.py"}
+        {
+          "label": "Studio website",
+          "kind": "static",
+          "dir": "pixel-verse-studios",
+          "port": 8509
+        },
+        {
+          "label": "Crab Quest (game)",
+          "kind": "game",
+          "dir": "Crab-game",
+          "entry": "main.py",
+          "requirements": [
+            "pgzero==1.2.1",
+            "pygame==2.6.1"
+          ]
+        },
+        {
+          "label": "Space X (game)",
+          "kind": "game",
+          "dir": "space-game",
+          "entry": "Game.py"
+        }
       ],
       "docs": {
         "documentation": "docs/documentation/pvs-documentation.pdf",
@@ -66,18 +110,34 @@
       "name": "MedMind",
       "folder": "MedMind",
       "category": "Web App (Frontend + Backend)",
-      "team": ["Mohammed Zain"],
+      "team": [
+        "Mohammed Zain"
+      ],
       "description": "A health-tech platform that closes the gap between \"I don't feel well\" and \"I know what to do\". A 24-hour chatbot gives a first read on symptoms, and the site lists doctors and hospitals (with prices and booking) and a library of diseases.",
       "github": "https://github.com/Zain7856/MedMind",
       "live": "https://zain7856.github.io/MedMind/",
       "apps": [
-        {"label": "MedMind", "kind": "node", "backend_dir": "backend", "backend_entry": "server.js", "backend_port": 3000, "dir": "frontend", "port": 8506}
+        {
+          "label": "MedMind",
+          "kind": "node",
+          "backend_dir": "backend",
+          "backend_entry": "server.js",
+          "backend_port": 3000,
+          "dir": "frontend",
+          "port": 8506
+        }
       ],
       "admin": {
         "db": "backend/database/app.db",
         "sql": "INSERT INTO users (Name, Email, Password, Role, ApprovalStatus) VALUES ('Admin', 'admin@admin.com', 'admin', 'Admin', 'Approved') ON CONFLICT(Email) DO UPDATE SET Password = 'admin', Role = 'Admin', ApprovalStatus = 'Approved'"
       },
-      "secrets": {"backend/.env": {"source": "egy_law/.streamlit/secrets.toml", "read": "GOOGLE_API_KEY", "write": "GEMINI_API_KEY={value}"}},
+      "secrets": {
+        "backend/.env": {
+          "source": "egy_law/.streamlit/secrets.toml",
+          "read": "GOOGLE_API_KEY",
+          "write": "GEMINI_API_KEY={value}"
+        }
+      },
       "docs": {
         "documentation": "docs/medmind-documentation.pdf",
         "poster": "docs/poster/medmind-poster-1000x2000mm.pdf",
@@ -89,12 +149,20 @@
       "name": "Many Houses",
       "folder": "many-houses",
       "category": "Web App",
-      "team": ["Yassin Al Ashry"],
+      "team": [
+        "Yassin Al Ashry"
+      ],
       "description": "A web app that lets people browse property listings across Egypt, save their favorites, and prepare a contract draft, all in one place, instead of searching scattered Facebook groups and ads.",
       "github": "https://github.com/elashryyasso67-stack/many-houses",
       "live": "",
       "apps": [
-        {"label": "Many Houses", "kind": "streamlit", "dir": ".", "entry": "app.py", "port": 8504}
+        {
+          "label": "Many Houses",
+          "kind": "streamlit",
+          "dir": ".",
+          "entry": "app.py",
+          "port": 8504
+        }
       ],
       "docs": {
         "poster": "docs/poster/manyhouses-poster-1000x2000mm.pdf",
@@ -106,12 +174,21 @@
       "name": "NEO Challenge",
       "folder": "neo_challenge",
       "category": "Web App",
-      "team": ["Mohamed Abd Alghany", "Osama Abd Alghany"],
+      "team": [
+        "Mohamed Abd Alghany",
+        "Osama Abd Alghany"
+      ],
       "description": "A free web app that puts three small daily habits in one place: sports challenges, language activities (English, French, German) and a general knowledge quiz, plus a workout library with 60 videos, a muscle explorer and nutrition plans.",
       "github": "https://github.com/osamaabdelghany1/neo_challenge_database",
       "live": "",
       "apps": [
-        {"label": "NEO Challenge", "kind": "streamlit", "dir": ".", "entry": "app.py", "port": 8505}
+        {
+          "label": "NEO Challenge",
+          "kind": "streamlit",
+          "dir": ".",
+          "entry": "app.py",
+          "port": 8505
+        }
       ],
       "admin": {
         "db": "database/database.db",
@@ -128,12 +205,20 @@
       "name": "EmlakHub",
       "folder": "emlakhub",
       "category": "Web App",
-      "team": ["Omar Hamissa"],
+      "team": [
+        "Omar Hamissa"
+      ],
       "description": "A real estate web app that makes it easy to search for properties and sell or rent them. Users browse the gallery, view each property's details, add a property after logging in, and prepare and download contracts.",
       "github": "https://github.com/omarhamissa2007-wq/my-new-project-emlakhub",
       "live": "",
       "apps": [
-        {"label": "EmlakHub", "kind": "streamlit", "dir": ".", "entry": "app.py", "port": 8503}
+        {
+          "label": "EmlakHub",
+          "kind": "streamlit",
+          "dir": ".",
+          "entry": "app.py",
+          "port": 8503
+        }
       ],
       "admin": {
         "db": "database/emlakhub.db",
@@ -150,18 +235,28 @@
       "name": "Ma'at",
       "folder": "egy_law",
       "category": "Web App / AI",
-      "team": ["Ahmed Medhat"],
+      "team": [
+        "Ahmed Medhat"
+      ],
       "description": "An AI-powered web app that helps people understand Egyptian law. The user uploads a legal PDF (a law, a contract or a court ruling) and asks questions about it in Arabic or English; Google Gemini writes the answer.",
       "github": "https://github.com/ahmedelshamy12-c/M-A-A-T",
       "live": "",
       "apps": [
-        {"label": "Ma'at", "kind": "streamlit", "dir": ".", "entry": "app.py", "port": 8502}
+        {
+          "label": "Ma'at",
+          "kind": "streamlit",
+          "dir": ".",
+          "entry": "app.py",
+          "port": 8502
+        }
       ],
       "admin": {
         "db": "data/data_base.db",
         "sql": "INSERT INTO users (username, email, password, ssn, job, age, role) VALUES ('aswan_admin', 'admin@admin.com', 'admin', '00000000000000', 'Admin', 30, 'admin') ON CONFLICT(email) DO UPDATE SET password = 'admin', role = 'admin'"
       },
-      "secrets": {".streamlit/secrets.toml": "egy_law/.streamlit/secrets.toml"},
+      "secrets": {
+        ".streamlit/secrets.toml": "egy_law/.streamlit/secrets.toml"
+      },
       "docs": {
         "documentation": "docs/ma`at-documentation.pdf",
         "poster": "docs/poster/maat-poster-1000x2000mm.pdf",
@@ -173,18 +268,47 @@
       "name": "Vivestand",
       "folder": "Vivestand",
       "category": "Static Website",
-      "team": ["Logien"],
+      "team": [
+        "Logien"
+      ],
       "description": "A digital platform that connects injured athletes with the specialized sports products that match their injuries, and lets specialized merchants reach an interested audience.",
       "github": "https://github.com/logy-ss/Vivestand",
       "live": "https://logy-ss.github.io/Vivestand/",
       "apps": [
-        {"label": "Vivestand website", "kind": "static", "dir": ".", "port": 8508}
+        {
+          "label": "Vivestand website",
+          "kind": "static",
+          "dir": ".",
+          "port": 8508
+        }
       ],
       "docs": {
         "documentation": "docs/vivestand-documentation.pdf",
         "poster": "docs/poster/vivestand-poster-1000x2000mm.pdf",
         "presentation": "docs/Vivestand-presentation.pdf"
       }
+    },
+    {
+      "id": "foodzilla",
+      "name": "foodZILLA",
+      "folder": "Foodzilla",
+      "category": "Static Website",
+      "team": [
+        "Abdel Wahab"
+      ],
+      "description": "A healthy-eating web platform where users explore nutrient-dense recipes across 5 nutritional categories, follow step-by-step video tutorials with calorie tracking, and order balanced meals through a shopping cart, breaking the myth that healthy food is boring or hard to prepare.",
+      "github": "https://github.com/mr-basem/Foodzilla",
+      "live": "https://mr-basem.github.io/Foodzilla/",
+      "login_note": "No login: the details form takes any password of 8+ characters. Recipe videos need internet (YouTube).",
+      "apps": [
+        {
+          "label": "foodZILLA website",
+          "kind": "static",
+          "dir": ".",
+          "port": 8510
+        }
+      ],
+      "docs": {}
     }
   ]
 }
