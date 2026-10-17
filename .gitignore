@@ -1,0 +1,6 @@
+# Built USB folder and download cache: large, and the built Install.bat holds the API keys.
+dist/
+cache/
+logs/
+__pycache__/
+.venv/
