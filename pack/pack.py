@@ -213,16 +213,39 @@ def batch_escape(text):
     return text
 
 
+def read_key(text, name):
+    # Finds NAME = "value" (secrets.toml) or NAME=value (.env).
+    for line in text.splitlines():
+        if "=" in line and line.split("=", 1)[0].strip() == name:
+            return line.split("=", 1)[1].strip().strip('"')
+    return None
+
+
+def secret_file_lines(secret):
+    # A secret is either a key file to copy as it is, or one key taken from another file
+    # and written in a new form ({"source", "read", "write"}).
+    if isinstance(secret, str):
+        source = WORKSPACE / secret
+    else:
+        source = WORKSPACE / secret["source"]
+    if not source.exists():
+        sys.exit("Key file missing on this machine: " + str(source))
+    text = source.read_text(encoding="utf-8")
+    if isinstance(secret, str):
+        return text.splitlines()
+    value = read_key(text, secret["read"])
+    if not value:
+        sys.exit(secret["read"] + " not found in " + str(source))
+    return [secret["write"].replace("{value}", value)]
+
+
 def secret_lines(manifest):
     lines = []
     for project in manifest["projects"]:
-        for relative, source_relative in project.get("secrets", {}).items():
-            source = WORKSPACE / source_relative
-            if not source.exists():
-                sys.exit("Key file missing on this machine: " + str(source))
+        for relative, secret in project.get("secrets", {}).items():
             destination = '"%TARGET%\\kit\\projects\\' + project["id"] + "\\" + relative.replace("/", "\\") + '"'
             first = True
-            for line in source.read_text(encoding="utf-8").splitlines():
+            for line in secret_file_lines(secret):
                 if line.strip() == "" or line.strip().startswith("#"):
                     continue
                 arrow = ">" if first else ">>"

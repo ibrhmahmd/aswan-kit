@@ -77,7 +77,7 @@
         "db": "backend/database/app.db",
         "sql": "INSERT INTO users (Name, Email, Password, Role, ApprovalStatus) VALUES ('Admin', 'admin@admin.com', 'admin', 'Admin', 'Approved') ON CONFLICT(Email) DO UPDATE SET Password = 'admin', Role = 'Admin', ApprovalStatus = 'Approved'"
       },
-      "secrets": {"backend/.env": "MedMind/backend/.env"},
+      "secrets": {"backend/.env": {"source": "egy_law/.streamlit/secrets.toml", "read": "GOOGLE_API_KEY", "write": "GEMINI_API_KEY={value}"}},
       "docs": {
         "documentation": "docs/medmind-documentation.pdf",
         "poster": "docs/poster/medmind-poster-1000x2000mm.pdf",
