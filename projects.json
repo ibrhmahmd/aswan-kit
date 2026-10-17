@@ -309,6 +309,32 @@
         }
       ],
       "docs": {}
+    },
+    {
+      "id": "kido-care",
+      "name": "Kido Care",
+      "folder": "kido care/kido-care",
+      "category": "Static Website",
+      "team": [
+        "Emad",
+        "Lana"
+      ],
+      "description": "A website for pregnant women and new mothers. It explains pregnancy week by week and baby care month by month, and lets mothers book a doctor, ask a question, order vitamins and tick off vaccines and tests. Kido Bot answers common questions.",
+      "github": "",
+      "live": "",
+      "apps": [
+        {
+          "label": "Kido Care website",
+          "kind": "static",
+          "dir": ".",
+          "port": 8511
+        }
+      ],
+      "docs": {
+        "documentation": "docs/kido-care-documentation.pdf",
+        "poster": "docs/poster/kido-care-poster-1000x2000mm.pdf",
+        "presentation": "docs/Kido-Care-presentation.pdf"
+      }
     }
   ]
 }

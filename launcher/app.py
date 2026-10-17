@@ -389,8 +389,9 @@ def show_card(project):
                 show_app_row(project, index, app)
         st.caption("Docs")
         show_docs(project)
-        st.caption("Code")
-        show_links(project)
+        if project.get("github") or project.get("live"):
+            st.caption("Code")
+            show_links(project)
 
 
 def stop_everything(manifest):
