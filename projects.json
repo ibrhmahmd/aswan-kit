@@ -154,7 +154,7 @@
       ],
       "description": "A web app that lets people browse property listings across Egypt, save their favorites, and prepare a contract draft, all in one place, instead of searching scattered Facebook groups and ads.",
       "github": "https://github.com/elashryyasso67-stack/many-houses",
-      "live": "",
+      "live": "https://many-houses.streamlit.app/",
       "apps": [
         {
           "label": "Many Houses",
@@ -181,7 +181,7 @@
       ],
       "description": "A free web app that puts three small daily habits in one place: sports challenges, language activities (English, French, German) and a general knowledge quiz, plus a workout library with 60 videos, a muscle explorer and nutrition plans.",
       "github": "https://github.com/osamaabdelghany1/neo_challenge_database",
-      "live": "",
+      "live": "https://neo-challenge.streamlit.app/",
       "apps": [
         {
           "label": "NEO Challenge",
@@ -211,7 +211,7 @@
       ],
       "description": "A real estate web app that makes it easy to search for properties and sell or rent them. Users browse the gallery, view each property's details, add a property after logging in, and prepare and download contracts.",
       "github": "https://github.com/omarhamissa2007-wq/my-new-project-emlakhub",
-      "live": "",
+      "live": "https://my-new-project-emlakapp.streamlit.app/",
       "apps": [
         {
           "label": "EmlakHub",
@@ -241,7 +241,7 @@
       ],
       "description": "An AI-powered web app that helps people understand Egyptian law. The user uploads a legal PDF (a law, a contract or a court ruling) and asks questions about it in Arabic or English; Google Gemini writes the answer.",
       "github": "https://github.com/ahmedelshamy12-c/M-A-A-T",
-      "live": "",
+      "live": "https://maat-law.streamlit.app/",
       "apps": [
         {
           "label": "Ma'at",
