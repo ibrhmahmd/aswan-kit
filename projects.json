@@ -418,6 +418,34 @@
         "poster": "docs/poster/medsync-poster-1000x2000mm.pdf",
         "presentation": "docs/MedSync-presentation.pdf"
       }
+    },
+    {
+      "id": "eyad-store",
+      "name": "Eyad Store",
+      "folder": "store eyad aswan",
+      "category": "Static Website",
+      "team": [
+        "Eyad"
+      ],
+      "description": "An online electronics shop. Visitors browse computers, phones, cameras and accessories, search and filter them, save favourites, fill a cart and check out. The cart and favourites are kept in the browser.",
+      "github": "",
+      "live": "",
+      "login_note": "No login.",
+      "fontawesome": "STORE",
+      "apps": [
+        {
+          "label": "Eyad Store website",
+          "kind": "static",
+          "dir": "STORE",
+          "port": 8513,
+          "page": "html.htm"
+        }
+      ],
+      "docs": {
+        "documentation": "docs/eyad-store-documentation.pdf",
+        "poster": "docs/poster/eyad-store-poster-1000x2000mm.pdf",
+        "presentation": "docs/Eyad-Store-presentation.pdf"
+      }
     }
   ]
 }

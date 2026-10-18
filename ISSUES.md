@@ -23,3 +23,6 @@ Push to `ibrhmahmd/aswan-kit` and deploy `launcher/app.py` on Streamlit Cloud.
 
 ## #8 Windows test run — bug hunt (user)
 Full install + run of every project on a real Windows laptop before the trip.
+
+## #9 Add Eyad Store — feature
+Add Eyad Store (static shop in `store eyad aswan/STORE`, home page `html.htm`, port 8513): manifest entry, a `page` field so Open lands on the shop, Font Awesome bundled into the copy for offline icons, its 3 docs, and an Excel row.

@@ -38,6 +38,12 @@ PYTHON_URL = ("https://github.com/astral-sh/python-build-standalone/releases/dow
 NODE_VERSION = "v22.23.3"
 NODE_URL = "https://nodejs.org/dist/" + NODE_VERSION + "/node-" + NODE_VERSION + "-win-x64.zip"
 
+# Font Awesome icons, put inside a project copy so its icons work without internet.
+FONTAWESOME_VERSION = "7.0.1"
+FONTAWESOME_URL = ("https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-"
+                   + FONTAWESOME_VERSION + ".tgz")
+FONTAWESOME_CDN = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/" + FONTAWESOME_VERSION + "/css/all.min.css"
+
 # Left out of every project copy: history, local environments, caches and agent folders.
 SKIP_NAMES = {".git", ".venv", "venv", "node_modules", "__pycache__", ".claude", ".agents", ".vscode", ".idea", "logs"}
 
@@ -171,6 +177,28 @@ def copy_project(project):
     return target
 
 
+def add_fontawesome(project, target):
+    # "fontawesome": "STORE" means: the pages in STORE load Font Awesome from the internet.
+    folder_name = project.get("fontawesome")
+    if not folder_name:
+        return
+    folder = target / folder_name
+    archive = download(FONTAWESOME_URL, "fontawesome-free-" + FONTAWESOME_VERSION + ".tgz")
+    with tarfile.open(archive) as tar:
+        for member in tar.getmembers():
+            if member.name == "package/css/all.min.css" or member.name.startswith("package/webfonts/"):
+                member.name = member.name.replace("package/", "fontawesome/", 1)
+                tar.extract(member, folder, filter="data")
+    changed = 0
+    for page in sorted(folder.glob("*.htm*")):
+        text = page.read_text(encoding="utf-8")
+        if FONTAWESOME_CDN in text:
+            page.write_text(text.replace(FONTAWESOME_CDN, "fontawesome/css/all.min.css"), encoding="utf-8")
+            changed = changed + 1
+    if changed == 0:
+        sys.exit(project["name"] + ": no page links to " + FONTAWESOME_CDN)
+
+
 def add_admin(project, target):
     admin = project.get("admin")
     if not admin:
@@ -287,6 +315,7 @@ def build():
     report = []
     for project in kit_manifest["projects"]:
         target = copy_project(project)
+        add_fontawesome(project, target)
         add_admin(project, target)
         report.append(project["name"] + ": " + check_admin(project, target, manifest["login"]))
         install_node_modules(project, target)

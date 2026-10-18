@@ -87,7 +87,8 @@ def app_ports(app):
 
 def app_url(app):
     if app.get("port"):
-        return "http://localhost:" + str(app["port"])
+        # Some sites have a home page that is not index.html, e.g. html.htm.
+        return "http://localhost:" + str(app["port"]) + "/" + app.get("page", "")
     return ""
 
 
